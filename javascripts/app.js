@@ -14,7 +14,7 @@ $(document).ready(function() {
 
   var posts = $('.posts'),
   afterString,
-  subdomain = readParams('r'),
+  subdomain = location.pathname.substr(1),
   loader = $('.wash'),
   loadMore = $('.loadmore-button'),
   activePost = 0,
@@ -344,7 +344,7 @@ $(document).ready(function() {
  $('.subreddit-input input').keydown(function(e){
   if(e.keyCode == 13) {
     e.preventDefault();
-    window.location.href = "http://www." + window.location.hostname + "/?r=r/" + $('.subreddit-input input').val();
+    window.location.href = "http://www." + window.location.hostname + "/r/" + $('.subreddit-input input').val();
   }
 });
 
