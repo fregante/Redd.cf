@@ -102,7 +102,7 @@ $(document).ready(function() {
         postHTML = postTemplate(postData);
 
     // If it's an imgur album make a request to the imgur API
-    if (postData.url.indexOf('imgur.com/a/') >= 0) {
+    if (/imgur\.com\/(a|gallery)\//.test(postData.url)) {
       fetchImgurAlbum(postData);
     }
 
