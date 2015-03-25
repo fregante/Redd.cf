@@ -54,7 +54,6 @@ $(document).ready(function() {
       });
     }).complete(function() {
       post = $('.post');
-      classifyImages();
       loader.fadeOut(100);
       loadMore.removeClass('loading');
       lock = false;
@@ -381,20 +380,6 @@ $(document).ready(function() {
     } else {
       return false;
     }
-  }
-
-  function classifyImages() {
-    imagesLoaded($('img').not('.already-classified'), function() {
-
-      $(this).each(function() {
-        $(this).addClass('already-classified');
-        if($(this).width() == 880) {
-          $(this).addClass('not-resizeable')
-        } else if($(this).width() != 880 && $(this).height() != 501) {
-          $(this).addClass('not-resizeable')
-        }
-      })
-    });
   }
 
   //Set and cookie the viewType (fullview/listview)
