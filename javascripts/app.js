@@ -30,11 +30,11 @@ $(document).ready(function() {
 //Initial Load -------------------------------------------------------------------------------
 
   // If viewType cookied, set it
-  if($.cookie("viewtype")) {
+  if(localStorage.getItem("viewtype")) {
     $('body')
       .removeClass('fullview')
       .removeClass('listview')
-      .addClass($.cookie("viewtype"));
+      .addClass(localStorage.getItem("viewtype"));
   }
 
   //Initial JSON load
@@ -428,8 +428,7 @@ $(document).ready(function() {
     } else {
       window.scrollTo(0,0);
     }
-    $.cookie("viewtype", null);
-    $.cookie("viewtype", activeClass, { expires: 100 });
+    localStorage.setItem("viewtype", activeClass);
   }
 
   // Open picker
