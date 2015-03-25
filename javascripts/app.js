@@ -169,10 +169,7 @@ $(document).ready(function() {
     var isImgur = (/imgur*/).test(url);
 
     if(isImgur) {
-
-      if(isImage(url)) {
-        // do nothing
-      } else {
+      if(!isImage(url) && !isGifv(url)) {
         url += ".jpg"
       }
     } else {
@@ -189,6 +186,9 @@ $(document).ready(function() {
 
     if(isImage(url)) {
       return '<a class="image-embed"><img src="'+url+'" alt="" /></a>';
+    } else if(isGifv(url)) {
+      var id = getImgurId(url);
+      return '<video autoplay loop muted preload title="Drag to Resize"><source src="http://i.imgur.com/'+id+'.webm" type="video/webm"><source src="http://i.imgur.com/'+id+'.mp4" type="video/mp4"></video>';
     }
   });
 
@@ -362,12 +362,7 @@ $(document).ready(function() {
 
   //Determine is this is an image
   function isImage(str){
-    var result = (/\.(?=gif|jpg|png)/gi).test(str);
-    if (result) {
-      return true;
-    } else {
-      return false;
-    }
+    return /\.(gif|jpe?g|png)$/i.test(str);
   }
 
   //Determine is this is a youtube video
@@ -379,6 +374,13 @@ $(document).ready(function() {
       return true;
     } else {
       return false;
+  //Determine is this is an gifv
+  function isGifv(str){
+    return /\.gifv$/i.test(str);
+  }
+
+  function getImgurId (url) {
+    return url.split( '/' )[3].split('.')[0];
     }
   }
 
