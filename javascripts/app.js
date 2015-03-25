@@ -157,7 +157,7 @@ $(document).ready(function() {
 
   //Create readable title from ?r= subdomain value
   if(!subdomain == "") {
-    var readableSubdomain = subdomain.replace("r/", "")
+    var readableSubdomain = subdomain.replace("r/", "").replace(/\/$/, "");
     $('.logo .subreddit .title').text(readableSubdomain);
     document.title = "Redditate: "+readableSubdomain;
   }
