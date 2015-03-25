@@ -386,12 +386,6 @@ $(document).ready(function() {
   function classifyImages() {
     imagesLoaded($('img').not('.already-classified'), function() {
 
-      // Image fullsize on click
-      $('.post .image-embed').click(function(e) {
-        e.preventDefault();
-        resizeImage($(this));
-      });
-
       $(this).each(function() {
         $(this).addClass('already-classified');
         if($(this).width() == 880) {
@@ -401,19 +395,6 @@ $(document).ready(function() {
         }
       })
     });
-  }
-
-  // Resize fullview inlined image
-  function resizeImage(clickTarget) {
-    if(clickTarget.hasClass('fullwidth')) {
-      // Determine if image is above offscreen and if so, make it at top of shrink
-      var postParentPosition = clickTarget.offset();
-      if(postParentPosition.top < $(window).scrollTop()) {
-        window.scrollTo(postParentPosition.left, (postParentPosition.top - $('nav').height() - 10));
-      }
-    }
-    // Toggle fullwidth class
-    clickTarget.toggleClass('fullwidth');
   }
 
   //Set and cookie the viewType (fullview/listview)
@@ -458,3 +439,22 @@ $(document).ready(function() {
   spinnerButton = new Spinner(optsButton).spin(targetButton);
 
 });
+
+// Image fullsize on click
+$(document).on('click touchend','.post .image-embed', function(e) {
+  e.preventDefault();
+  resizeImage($(this));
+});
+
+// Resize fullview inlined image
+function resizeImage(clickTarget) {
+  if(clickTarget.hasClass('fullwidth')) {
+    // Determine if image is above offscreen and if so, make it at top of shrink
+    var postParentPosition = clickTarget.offset();
+    if(postParentPosition.top < $(window).scrollTop()) {
+      window.scrollTo(postParentPosition.left, (postParentPosition.top - $('nav').height() - 10));
+    }
+  }
+  // Toggle fullwidth class
+  clickTarget.toggleClass('fullwidth');
+}
