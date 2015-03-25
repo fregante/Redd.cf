@@ -29,8 +29,6 @@ $(document).ready(function() {
 
 //Initial Load -------------------------------------------------------------------------------
 
-  window.scrollTo(0,0);
-
   // If viewType cookied, set it
   if($.cookie("viewtype")) {
     $('body')
