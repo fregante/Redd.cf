@@ -74,7 +74,6 @@ nav .view-options a {
 	padding-bottom: 20px;
 	margin-top: 20px;
 	border-bottom: 1px solid #ccc;
-	overflow: hidden;
 }
 .posts .post:last-child {
 	border-bottom: 0;
@@ -89,15 +88,18 @@ nav .view-options a {
 	color: #333;
 }
 .post .image-embed {
-	display: inline-block;
-}
-.post .image-embed img {
-	max-width: 880px;
-	max-height: 501px;
+	display: block;
 	cursor:url(../images/zoom-in-icon.png), -moz-zoom-in;
 }
-.post img.fullwidth {
-	max-height: none;
+.post .image-embed img {
+	display: block;
+	margin: auto;
+	max-width: 100%;
+	height: auto;
+}
+.post .fullwidth {
+	width: 100vw;
+	margin-left: calc((-100vw + 100%) / 2);
 	cursor:url(../images/zoom-out-icon.png), -moz-zoom-out;
 }
 .post .image-embed img.not-resizeable {
@@ -411,11 +413,6 @@ h2 a {
 
 
 @media only screen and (max-width: 880px) {
-	.post .image-embed img {
-		max-width: 100%;
-		height: auto;
-		cursor: default;
-	}
 	iframe {
 		max-width: 100%;
 	}

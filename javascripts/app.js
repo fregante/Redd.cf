@@ -299,7 +299,7 @@ $(document).ready(function() {
         }
         // "Z" zooms on image in post if there is one
         if (evt.keyCode == 90) {
-          resizeImage(post.eq(activePost-1).find('.image-embed img'));
+          resizeImage(post.eq(activePost-1).find('.image-embed'));
         }
         // "C" zooms on image in post if there is one
         if (evt.keyCode == 67) {
@@ -389,7 +389,7 @@ $(document).ready(function() {
     imagesLoaded($('img').not('.already-classified'), function() {
 
       // Image fullsize on click
-      $('.post .image-embed img').click(function(e) {
+      $('.post .image-embed').click(function(e) {
         e.preventDefault();
         resizeImage($(this));
       });
