@@ -101,6 +101,7 @@ nav .view-options a {
 }
 .post .image-embed {
 	display: block;
+	text-decoration: none;
 	cursor:url(../images/zoom-in-icon.png), -moz-zoom-in;
 }
 .post .image-embed img {
@@ -128,21 +129,22 @@ h2 a {
 /* Album
 ================================================== */
 .imgur-album {
-	display: inline-block;
 	position: relative;
+	text-align: center;
 }
 
 .imgur-album li {
 	display: none;
 	position: relative;
+	margin-bottom: 0;
 }
 
 .imgur-album li:first-of-type {
-	display: block;
+	display: inline-block;
 }
 
 .imgur-album.show-album li {
-	display: block;
+	display: inline-block;
 }
 
 .imgur-album.show-album .open-album-wrapper {

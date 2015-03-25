@@ -81,9 +81,7 @@
 		<ul id="album-{{cover}}" class="imgur-album">
 			{{#each images}}
 				<li>
-					<a class="image-embed">
-						<img src="/images/grey.gif" data-src="{{links.large_thumbnail}}" alt="{{image.caption}}">
-					</a>
+					<img src="/images/grey.gif" data-src="{{links.large_thumbnail}}" alt="{{image.caption}}">
 					{{#if image.caption}}
 						<p class="imgur-caption">{{image.caption}}</p>
 					{{/if}}
