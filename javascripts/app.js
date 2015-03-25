@@ -199,7 +199,7 @@ $(document).ready(function() {
       youtubeID = url.replace(/^[^v]+v.(.{11}).*/,"$1");
       youtubeLinkTime = url.split("#");
       youtubeLinkTime = youtubeLinkTime[1];
-      return '<iframe width="420" height="345" src="http://www.youtube.com/embed/'+youtubeID+'?wmode=transparent&#'+youtubeLinkTime+'" frameborder="0" wmode="Opaque" allowfullscreen></iframe>';
+      return '<div class="fixed-16-9"><iframe width="420" height="345" src="http://www.youtube.com/embed/'+youtubeID+'?wmode=transparent&#'+youtubeLinkTime+'" frameborder="0" wmode="Opaque" allowfullscreen></iframe></div>';
     } else {
       return false;
     }

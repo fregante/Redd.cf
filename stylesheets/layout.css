@@ -20,6 +20,18 @@ body {
 	max-width: 880px;
 	margin: 0 auto;
 }
+.fixed-16-9 {
+	position: relative;
+	height: 0;
+	padding-top: 56.25%;
+}
+.fixed-16-9 iframe {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
 
 /* Nav
 ================================================== */
