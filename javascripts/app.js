@@ -194,8 +194,8 @@ $(document).ready(function() {
 
   // YOUTUBE: If embedded video is real, render it
   Handlebars.registerHelper('hasYoutube', function(url, fn) {
-    if(isYoutube(url)) {
-      youtubeID = url.replace(/^[^v]+v.(.{11}).*/,"$1");
+    var youtubeID = getYoutubeId(url);
+    if(youtubeID) {
       youtubeLinkTime = url.split("#");
       youtubeLinkTime = youtubeLinkTime[1];
       return '<div class="fixed-16-9"><iframe width="420" height="345" src="http://www.youtube.com/embed/'+youtubeID+'?wmode=transparent&#'+youtubeLinkTime+'" frameborder="0" wmode="Opaque" allowfullscreen></iframe></div>';
@@ -365,23 +365,41 @@ $(document).ready(function() {
     return /\.(gif|jpe?g|png)$/i.test(str);
   }
 
-  //Determine is this is a youtube video
-  function isYoutube(str){
-    var urlResult = str.indexOf('youtube');
-    // Doesn't link to youtubes that aren't videos
-    var videoResult = str.indexOf('watch');
-    if (urlResult != -1 && videoResult != -1) {
-      return true;
-    } else {
-      return false;
   //Determine is this is an gifv
   function isGifv(str){
     return /\.gifv$/i.test(str);
   }
 
+  //convert url into pieces
+  function parseLink (url) {
+    var link = document.createElement('a');
+    link.href = url;
+    return link;
+  }
+
   function getImgurId (url) {
     return url.split( '/' )[3].split('.')[0];
+  }
+
+
+  //get youtube video id
+  function getYoutubeId (url) {
+    var link = parseLink(url);
+    if (/youtu\.be/.test(link.hostname)) { // http://youtu.be/333333333
+      return link.pathname.substr(1);
     }
+    if (/youtube\.com/.test(link.hostname)) {
+      var matched = link.search.match(/[?&]v=([^&]+)/);
+      if (matched) {
+        return matched[1];
+      }
+      //https://www.youtube.com/embed/-1yrVYDhCLo?feature=oembed…
+      matched = link.pathname.match(/embed\/([^\/?]+)/);
+      if (matched) {
+        return matched[1];
+      }
+    }
+    return false;
   }
 
   //Set and cookie the viewType (fullview/listview)
