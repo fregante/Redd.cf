@@ -99,12 +99,13 @@ nav .view-options a {
 .post .metadata a:hover {
 	color: #333;
 }
-.post .image-embed {
+.post .embed {
 	display: block;
 	text-decoration: none;
 	cursor:url(../images/zoom-in-icon.png), -moz-zoom-in;
 }
-.post .image-embed img {
+.post .embed img,
+.post .embed video {
 	display: block;
 	margin: auto;
 	max-width: 100%;
@@ -116,13 +117,13 @@ nav .view-options a {
 	cursor:url(../images/zoom-out-icon.png), -moz-zoom-out;
 }
 @media (max-width: 880px) {
-	.post .image-embed {
+	.post .embed {
 		width: 100vw;
 		margin-left: calc((-100vw + 100%) / 2);
 		cursor: default;
 	}
 }
-.post .image-embed img.not-resizeable {
+.post .embed img.not-resizeable {
 	cursor: default;
 }
 .post .thumbnail-embed {
@@ -196,7 +197,7 @@ h2 a {
 
 /* Listview
 ================================================== */
-.listview .post .image-embed,
+.listview .post .embed,
 .listview .post iframe  {
 	display: none;
 }
@@ -479,7 +480,7 @@ h2 a {
 	}
 }
 @media only screen and (max-device-width: 500px) {
-	.post .image-embed img {
+	.post .embed img {
 		max-height: 100000px;
 	}
 }

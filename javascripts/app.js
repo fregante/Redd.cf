@@ -131,7 +131,7 @@ $(document).ready(function() {
         albumHTML = albumTemplate(imgurAlbumData.album);
 
 
-    $('#' + postData.name).find('.image-embed').html(albumHTML);
+    $('#' + postData.name).find('.embed').html(albumHTML);
 
     var $previewImage = $('#album-' + imgurAlbumData.album.cover).find('li:first-of-type img'),
         previewImageSrc = $previewImage.data('src');
@@ -185,10 +185,10 @@ $(document).ready(function() {
     }
 
     if(isImage(url)) {
-      return '<a class="image-embed"><img src="'+url+'" alt="" /></a>';
+      return '<a class="embed"><img src="'+url+'" alt="" /></a>';
     } else if(isGifv(url)) {
       var id = getImgurId(url);
-      return '<video autoplay loop muted preload title="Drag to Resize"><source src="http://i.imgur.com/'+id+'.webm" type="video/webm"><source src="http://i.imgur.com/'+id+'.mp4" type="video/mp4"></video>';
+      return '<div class="embed"><video autoplay loop muted preload><source src="http://i.imgur.com/'+id+'.webm" type="video/webm"><source src="http://i.imgur.com/'+id+'.mp4" type="video/mp4"></video></div>';
     }
   });
 
@@ -198,7 +198,7 @@ $(document).ready(function() {
     if(youtubeID) {
       youtubeLinkTime = url.split("#");
       youtubeLinkTime = youtubeLinkTime[1];
-      return '<div class="fixed-16-9"><iframe width="420" height="345" src="http://www.youtube.com/embed/'+youtubeID+'?wmode=transparent&#'+youtubeLinkTime+'" frameborder="0" wmode="Opaque" allowfullscreen></iframe></div>';
+      return '<div class="embed"><div class="fixed-16-9"><iframe width="420" height="345" src="http://www.youtube.com/embed/'+youtubeID+'?wmode=transparent&#'+youtubeLinkTime+'" frameborder="0" wmode="Opaque" allowfullscreen></iframe></div></div>';
     } else {
       return false;
     }
@@ -296,7 +296,7 @@ $(document).ready(function() {
         }
         // "Z" zooms on image in post if there is one
         if (evt.keyCode == 90) {
-          resizeImage(post.eq(activePost-1).find('.image-embed'));
+          resizeImage(post.eq(activePost-1).find('.embed'));
         }
         // "C" zooms on image in post if there is one
         if (evt.keyCode == 67) {
@@ -446,7 +446,7 @@ $(document).ready(function() {
 });
 
 // Image fullsize on click
-$(document).on('click','.post .image-embed', function(e) {
+$(document).on('click','.post .embed', function(e) {
   e.preventDefault();
   resizeImage($(this));
 });
