@@ -446,7 +446,7 @@ $(document).ready(function() {
 });
 
 // Image fullsize on click
-$(document).on('click touchend','.post .image-embed', function(e) {
+$(document).on('click','.post .image-embed', function(e) {
   e.preventDefault();
   resizeImage($(this));
 });
