@@ -115,6 +115,13 @@ nav .view-options a {
 	margin-left: calc((-100vw + 100%) / 2);
 	cursor:url(../images/zoom-out-icon.png), -moz-zoom-out;
 }
+@media (max-width: 880px) {
+	.post .image-embed {
+		width: 100vw;
+		margin-left: calc((-100vw + 100%) / 2);
+		cursor: default;
+	}
+}
 .post .image-embed img.not-resizeable {
 	cursor: default;
 }
