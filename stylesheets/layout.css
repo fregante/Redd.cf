@@ -128,6 +128,14 @@ nav .view-options a {
 		cursor: default;
 	}
 }
+@media (min-width: 881px) {
+	.post .embed img {
+		max-height: 90vh;
+	}
+	.post .fullwidth img{
+		max-height: none;
+	}
+}
 .post .embed img.not-resizeable {
 	cursor: default;
 }
