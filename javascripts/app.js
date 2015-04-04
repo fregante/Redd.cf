@@ -169,6 +169,11 @@ $(document).ready(function() {
   Handlebars.registerHelper('hasMedia', function(url, fn) {
     var id;
 
+    // any image
+    if (isImage(url)) {
+      return imageTemplate({url: url});
+    }
+
     // imgur gifv
     id = getGifvId(url);
     if (id) {
