@@ -62,7 +62,7 @@ $(document).ready(function() {
 
   $(window).scroll(function(){
     // Load more JSON from scroll
-    if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10){
+    if ($(window).scrollTop() >= $(document).height() - $(window).height() - $(window).height()){
       if(lock == false) {
         lock = true;
         loader.fadeIn(100);
