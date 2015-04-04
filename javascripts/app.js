@@ -15,7 +15,7 @@ $(document).ready(function() {
   var posts = $('.posts'),
   afterString,
   subdomain = location.pathname.substr(1),
-  loader = $('.wash'),
+  loader = $('.loader'),
   loadMore = $('.loadmore-button'),
   activePost = 0,
   post,
@@ -61,8 +61,9 @@ $(document).ready(function() {
   }
 
   $(window).scroll(function(){
+    var scroll = $(window).scrollTop();
     // Load more JSON from scroll
-    if ($(window).scrollTop() >= $(document).height() - $(window).height() - $(window).height()){
+    if (scroll >= $(document).height() - $(window).height()*2){
       if(lock == false) {
         lock = true;
         loader.fadeIn(100);
@@ -70,10 +71,10 @@ $(document).ready(function() {
       }
     }
     //Control activePost value based on scroll position
-    if($(document).scrollTop() > (post.eq(activePost).offset().top-90)) {
+    if(scroll > (post.eq(activePost).offset().top-90)) {
       activePost++
     }
-    if($(document).scrollTop() < (post.eq(activePost-1).offset().top-90)) {
+    if(scroll < (post.eq(activePost-1).offset().top-90)) {
       if(activePost-1 > 0) {
         activePost--
       }
@@ -452,21 +453,6 @@ $(document).ready(function() {
     $('body').removeClass('subreddit-picker-open');
     $('.subreddit-picker').slideUp(250);
   }
-
-  //Spinner -------------------------------------------------------------------------------
-  var optsWash = {
-    width: 2 // The line thickness
-  },
-  optsButton = {
-    width: 2, // The line thickness
-    radius: 6,
-    length: 4
-  },
-  targetWash = document.getElementById('loading'),
-  targetButton = document.getElementById('spinner'),
-  spinnerWash = new Spinner(optsWash).spin(targetWash),
-  spinnerButton = new Spinner(optsButton).spin(targetButton);
-
 });
 
 // Image fullsize on click
