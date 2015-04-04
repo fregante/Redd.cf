@@ -104,12 +104,17 @@ nav .view-options a {
 	text-decoration: none;
 	cursor:url(../images/zoom-in-icon.png), -moz-zoom-in;
 }
+.post .embed img {
+	min-height: 30px;
+	min-width: 30px;
+}
 .post .embed img,
 .post .embed video {
 	display: block;
 	margin: auto;
 	max-width: 100%;
 	height: auto;
+	background: rgba(0,0,0,.1);
 }
 .post .fullwidth {
 	width: 100vw;
