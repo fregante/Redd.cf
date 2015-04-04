@@ -97,7 +97,7 @@ $(document).ready(function() {
     var postHTML = postTemplate(postData);
 
     // If it's an imgur album make a request to the imgur API
-    if (/imgur\.com\/(a|gallery)\//.test(postData.url)) {
+    if (isImgurAlbum(postData.url)) {
       fetchImgurAlbum(postData);
     }
 
@@ -181,10 +181,8 @@ $(document).ready(function() {
     }
 
     // single imgur
-    if (/imgur*/.test(url)) {
-      if(!isImage(url)) {
-        url += ".jpg";
-      }
+    if (/imgur*/.test(url) && !isImgurAlbum(url)) {
+      url += ".jpg";
       return imageTemplate({url: url});
     }
 
@@ -373,9 +371,14 @@ $(document).ready(function() {
       return results[1];
   }
 
-  //Determine is this is an image
+  // Determine is this is an image
   function isImage(str){
     return /\.(gif|jpe?g|png)$/i.test(str);
+  }
+
+  // Determine if this is an imgur album
+  function isImgurAlbum(str) {
+    return /imgur\.com\/(a|gallery)[/]/.test(str);
   }
 
   //convert url into pieces
