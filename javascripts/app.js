@@ -97,9 +97,7 @@ $(document).ready(function() {
 
   // Render Post with Handlebars
   function renderPost(postData) {
-    var templateSource   = $("#postTemplate").html(),
-        postTemplate = Handlebars.compile(templateSource);
-        postHTML = postTemplate(postData);
+    var postHTML = postTemplate(postData);
 
     // If it's an imgur album make a request to the imgur API
     if (/imgur\.com\/(a|gallery)\//.test(postData.url)) {
@@ -126,9 +124,7 @@ $(document).ready(function() {
 
   // render first image as a preview and store rest of src tags as data attributes
   function renderAlbum(postData, imgurAlbumData) {
-    var albumTemplateSource = $("#imgurAlbumTemplate").html(),
-        albumTemplate = Handlebars.compile(albumTemplateSource),
-        albumHTML = albumTemplate(imgurAlbumData.album);
+    var albumHTML = imgurAlbumTemplate(imgurAlbumData.album);
 
 
     $('#' + postData.name).find('.embed').html(albumHTML);
@@ -162,46 +158,54 @@ $(document).ready(function() {
   }
 
 
+  // Template Caches -------------------------------------------------------------------------------
+
+  var postTemplate        = Handlebars.compile($("#postTemplate").html());
+  var imgurAlbumTemplate  = Handlebars.compile($("#imgurAlbumTemplate").html());
+  var imageTemplate       = Handlebars.compile($("#imageTemplate").html());
+  var inlineVideoTemplate = Handlebars.compile($("#inlineVideoTemplate").html());
+  var iframeVideoTemplate = Handlebars.compile($("#iframeVideoTemplate").html());
+
   // Template Helpers -------------------------------------------------------------------------------
 
-  // IMAGE: Rendering fullsize images
-  Handlebars.registerHelper('hasImage', function(url, fn) {
-    var isImgur = (/imgur*/).test(url);
+  // MEDIA
+  Handlebars.registerHelper('hasMedia', function(url, fn) {
+    var id;
 
-    if(isImgur) {
-      if(!isImage(url) && !isGifv(url)) {
-        url += ".jpg"
-      }
-    } else {
-      var isQuickMeme = (/(?:qkme\.me|quickmeme\.com\/meme)\/(\w*)/).exec(url);
-      if (isQuickMeme !== null) {
-        url = "http://i.qkme.me/" + isQuickMeme[1] + ".jpg";
-      }
-
-      var isLiveMeme = (/(?:livememe\.com)\/(\w*)/).exec(url);
-      if (isLiveMeme !== null) {
-        url = "http://ai1.livememe.com/" +isLiveMeme[1] + ".gif";
-      }
+    // imgur gifv
+    id = getGifvId(url);
+    if (id) {
+      return inlineVideoTemplate({url: 'http://i.imgur.com/'+id});
     }
 
-    if(isImage(url)) {
-      return '<a class="embed"><img src="'+url+'" alt="" /></a>';
-    } else if(isGifv(url)) {
-      var id = getImgurId(url);
-      return '<div class="embed"><video autoplay loop muted preload><source src="http://i.imgur.com/'+id+'.webm" type="video/webm"><source src="http://i.imgur.com/'+id+'.mp4" type="video/mp4"></video></div>';
+    // single imgur
+    if (/imgur*/.test(url)) {
+      if(!isImage(url)) {
+        url += ".jpg";
+      }
+      return imageTemplate({url: url});
     }
-  });
 
-  // YOUTUBE: If embedded video is real, render it
-  Handlebars.registerHelper('hasYoutube', function(url, fn) {
-    var youtubeID = getYoutubeId(url);
-    if(youtubeID) {
-      youtubeLinkTime = url.split("#");
-      youtubeLinkTime = youtubeLinkTime[1];
-      return '<div class="embed"><div class="fixed-16-9"><iframe width="420" height="345" src="http://www.youtube.com/embed/'+youtubeID+'?wmode=transparent&#'+youtubeLinkTime+'" frameborder="0" wmode="Opaque" allowfullscreen></iframe></div></div>';
-    } else {
-      return false;
+    // youtube
+    id = getYoutubeId(url);
+    if (id) {
+      var youtubeLinkTime = url.split("#")[1];
+      return iframeVideoTemplate({url: 'http://www.youtube.com/embed/'+id+'#'+youtubeLinkTime});
     }
+
+    // quickmeme
+    id = getQuickMemeId(url);
+    if (id) {
+      return imageTemplate({url: "http://i.qkme.me/" + id + ".jpg"});
+    }
+
+    // livememe
+    id = getLiveMemeId(url);
+    if (id) {
+      return imageTemplate({url: "http://ai1.livememe.com/" +id + ".gif"});
+    }
+
+    return false;
   });
 
   // LISTVIEW THUMBNAIL: If thumb is real, render it
@@ -365,11 +369,6 @@ $(document).ready(function() {
     return /\.(gif|jpe?g|png)$/i.test(str);
   }
 
-  //Determine is this is an gifv
-  function isGifv(str){
-    return /\.gifv$/i.test(str);
-  }
-
   //convert url into pieces
   function parseLink (url) {
     var link = document.createElement('a');
@@ -377,8 +376,23 @@ $(document).ready(function() {
     return link;
   }
 
-  function getImgurId (url) {
-    return url.split( '/' )[3].split('.')[0];
+  // get imgur gifv id
+  // http://i.imgur.com/ybwxlhB.gifv
+  function getGifvId (url) {
+    var matched = url.match(/imgur.com\/([^.]+)[.]gifv/);
+    return matched && matched[1];
+  }
+
+  // quickmeme
+  function getQuickMemeId (url) {
+    var matched = url.match(/(?:qkme\.me|quickmeme\.com\/meme)\/(\w*)/);
+    return matched && matched[1];
+  }
+
+  // livememe
+  function getLiveMemeId (url) {
+    var matched = url.match(/(?:livememe\.com)\/(\w*)/);
+    return matched && matched[1];
   }
 
 

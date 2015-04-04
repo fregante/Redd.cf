@@ -64,15 +64,13 @@
 					{{#isAlbum url}}
 					{{/isAlbum}}
 				</div>
-				{{#hasImage url}}
+				{{#hasMedia url}}
 					{{url}}
-				{{/hasImage}}
-				{{#hasYoutube url}}
-					{{url}}
-				{{/hasYoutube}}
+				{{/hasMedia}}
 			</div>
 		</div>
 	</script>
+
 	<script id="imgurAlbumTemplate" type="text/x-handlebars-template">
 		<ul id="album-{{cover}}" class="imgur-album">
 			{{#each images}}
@@ -88,6 +86,29 @@
 			</li>
 		</ul>
 	</script>
+
+	<script id="imageTemplate" type="text/x-handlebars-template">
+		<a class="embed"><img src="{{url}}" alt="" /></a>
+	</script>
+
+	<script id="inlineVideoTemplate" type="text/x-handlebars-template">
+		<div class="embed">
+			<video loop muted preload controls onclick="if(paused) play(); else pause()">
+				<source src="{{url}}.webm" type="video/webm">
+				<source src="{{url}}.mp4" type="video/mp4">
+				<img src="{{url}}.gif">
+			</video>
+		</div>
+	</script>
+
+	<script id="iframeVideoTemplate" type="text/x-handlebars-template">
+		<div class="embed">
+			<div class="fixed-16-9">
+				<iframe src="{{url}}" frameborder="0" allowfullscreen></iframe>
+			</div>
+		</div>
+	</script>
+
 	<script src="/javascripts/spin.min.js"></script>
 	<script src="/javascripts/app.js?v=6"></script>
 
