@@ -189,6 +189,12 @@ $(document).ready(function() {
       return iframeVideoTemplate({url: 'http://www.youtube.com/embed/'+id+'#'+youtubeLinkTime});
     }
 
+    // gfycat
+    id = getGfycatId(url);
+    if (id) {
+      return inlineVideoTemplate({url: 'http://giant.gfycat.com/'+id});
+    }
+
     // quickmeme
     id = getQuickMemeId(url);
     if (id) {
@@ -383,6 +389,13 @@ $(document).ready(function() {
   // quickmeme
   function getQuickMemeId (url) {
     var matched = url.match(/(?:qkme\.me|quickmeme\.com\/meme)\/(\w*)/);
+    return matched && matched[1];
+  }
+
+  // gfycat
+  // http://gfycat.com/ElectricOffbeatKrill
+  function getGfycatId (url) {
+    var matched = url.match(/gfycat[.]com[/](\w+)/);
     return matched && matched[1];
   }
 
