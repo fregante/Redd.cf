@@ -63,14 +63,10 @@ $(document).ready(function() {
   $(window).scroll(function(){
     // Load more JSON from scroll
     if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10){
-      if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i)) {
-
-      } else {
-        if(lock == false) {
-          lock = true;
-          loader.fadeIn(100);
-          loadJSON();
-        }
+      if(lock == false) {
+        lock = true;
+        loader.fadeIn(100);
+        loadJSON();
       }
     }
     //Control activePost value based on scroll position
@@ -223,6 +219,7 @@ $(document).ready(function() {
   //     return ' (album)';
   //   }
   // });
+
 
   //Interactions -------------------------------------------------------------------------------
 
