@@ -101,12 +101,15 @@ nav .view-options a {
 }
 .post .embed {
 	display: block;
+	width: 100vw;
+	margin-left: calc((-100vw + 100%) / 2);
 	text-decoration: none;
 	cursor:url(../images/zoom-in-icon.png), -moz-zoom-in;
 }
 .post .embed img {
 	min-height: 30px;
 	min-width: 30px;
+	max-height: 90vh;
 }
 .post .embed img,
 .post .embed video {
@@ -117,24 +120,10 @@ nav .view-options a {
 	background: rgba(0,0,0,.1);
 }
 .post .fullwidth {
-	width: 100vw;
-	margin-left: calc((-100vw + 100%) / 2);
 	cursor:url(../images/zoom-out-icon.png), -moz-zoom-out;
 }
-@media (max-width: 880px) {
-	.post .embed {
-		width: 100vw;
-		margin-left: calc((-100vw + 100%) / 2);
-		cursor: default;
-	}
-}
-@media (min-width: 881px) {
-	.post .embed img {
-		max-height: 90vh;
-	}
-	.post .fullwidth img{
-		max-height: none;
-	}
+.post .fullwidth img{
+	max-height: none;
 }
 .post .embed img.not-resizeable {
 	cursor: default;
